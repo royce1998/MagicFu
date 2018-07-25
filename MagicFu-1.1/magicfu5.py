@@ -198,7 +198,7 @@ def _main(args):
             label_result = []
             match_pair = []
             dic = {'person': 'next to another person!', 'motorbike':'doing workout with a Gym Bicycle!', 'bicycle':'doing workout with a Gym Bicycle!', 'sports ball':'doing workout with a Yoga Ball!', 'apple':'doing workout with a Yoga Ball!', 'mouse':'doing workout with a Yoga Ball!', 'chair':'taking a rest!', 'sofa':'taking a rest!' }
-            weights = {'apple':0.1, 'person': 0.6, 'bicycle': 0.1, 'sports ball': 0.1, 'motorbike': 0.1, 'mouse': 0.1, 'chair': 0.1, 'sofa':0.1}
+            weights = {'apple':0.1, 'person': 0.7, 'bicycle': 0.1, 'sports ball': 0.1, 'motorbike': 0.1, 'mouse': 0.1, 'chair': 0.1, 'sofa':0.1}
             
             for i, c in reversed(list(enumerate(out_classes))):
                 predicted_class = class_names[c]
@@ -275,15 +275,18 @@ def _main(args):
                         founduser = True
                         if cachedprediction[1] != 'nothing': printpred(cachedprediction[1])
                         elif cachedprediction[0] != 'nothing': printpred(cachedprediction[0])
-                        elif (distance(body_pos(match_pair[0][1]), cachedposition) < 6): print("\n[INFO] Predicted scene: User is taking a rest!")
+                        elif (distance(body_pos(match_pair[0][1]), cachedposition) < 7): print("\n[INF0] Predicted scene: User is taking a rest!")
                         print("[INFO] User Pos:", body_pos(match_pair[0][1]))
                         cachedposition = body_pos(match_pair[0][1])
-                    if not founduser:
-                        cachedposition = (-1000, -1000)
-                    cachedprediction[0] = cachedprediction[1]
-                    cachedprediction[1] = 'nothing'
+                        cachedprediction[0] = cachedprediction[1]
+                        cachedprediction[1] = 'nothing'
+                        break
+                    
                 except KeyError:
                     continue
+                
+            if not founduser:
+                cachedposition = (-1000, -1000)
             
             label_result = [] # cache
             if debugging: print("Loop time : %.3f\n" % (time.time() - start_time)) # -2 for the 2 second camera preview time
