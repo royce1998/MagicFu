@@ -275,7 +275,7 @@ def _main(args):
                         founduser = True
                         if cachedprediction[1] != 'nothing': printpred(cachedprediction[1])
                         elif cachedprediction[0] != 'nothing': printpred(cachedprediction[0])
-                        elif (distance(body_pos(match_pair[0][1]), cachedposition) < 6):
+                        elif (distance(body_pos(match_pair[0][1]), cachedposition) < 4):
                             print("\n[INF0] Predicted scene: User is taking a rest!")
                             cachedprediction[0] = cachedprediction[1]
                             cachedprediction[1] = 'chair'
